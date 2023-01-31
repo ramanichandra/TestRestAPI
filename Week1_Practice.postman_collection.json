@@ -1,0 +1,431 @@
+{
+	"info": {
+		"_postman_id": "06c0cbf6-8197-4a6f-bafa-e16fafb49e17",
+		"name": "Week1_Practice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24867141"
+	},
+	"item": [
+		{
+			"name": "GetChangeRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetChangeRequestSingleRecord",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request/11dbae80473ce11028427d45d36d43a8?sysparm_fields=sys_id",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request",
+						"11dbae80473ce11028427d45d36d43a8"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetChangeRequestQueryParam",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Request success Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Please roll-back SP2\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request?sysparm_fields=sys_id,description&sysparm_limit=5",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id,description"
+						},
+						{
+							"key": "sysparm_limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"API Week 1 Assignment\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 201 - Insert Success\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"short_description\": \"Ramani API Assignment1\",\n    \"description\": \"API Week 1 Assignment\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request?sysparm_fields=description,short_description,sys_id",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "description,short_description,sys_id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostChangeRequestQueryParam",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Post success Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Ramani API Post\");",
+							"});",
+							"",
+							"var resp = pm.response.json();",
+							"console.log(resp.result.sys_id)",
+							"console.log(resp.result.description)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"short_description\": \"Ramani API Post\",\n    \"description\": \"API Week 1 Practice\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request?sysparm_fields=sys_id,description",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id,description"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostChangeRequestXML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Post success Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Body matches string XML testing\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"XML testing\");",
+							"});",
+							"",
+							"var resp=xml2Json(responseBody);",
+							"var sys_id=resp.response.result.sys_id;",
+							"var desc=resp.response.result.description;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<request>\n    <entry>\n        <description>XML Request format practice</description>\n        <short_description>XML testing</short_description>\n    </entry>\n</request>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id,description",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Update Ramani API Practice\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"short_description\": \"Update Ramani API Practice\",\n    \"description\": \"Put API Week 1 Practice\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request/efef71cc4778e11028427d45d36d43f6",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request",
+						"efef71cc4778e11028427d45d36d43f6"
+					],
+					"query": [
+						{
+							"key": "sys_id",
+							"value": "efef71cc4778e11028427d45d36d43f6",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteChange_Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete is successful sys_is 11dbae80473ce11028427d45d36d43a8 deleted\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://dev120521.service-now.com/api/now/table/change_request/{{SysID}}",
+					"protocol": "https",
+					"host": [
+						"dev120521",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request",
+						"{{SysID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "kjT@LQR*3b9b",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
